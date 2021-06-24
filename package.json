@@ -1,0 +1,19 @@
+{
+  "name": "quickbooks-api",
+  "version": "1.0.0",
+  "description": "Gathering and pushing data",
+  "main": "test.js",
+  "dependencies": {
+    "body-parser": "latest",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "intuit-oauth": "^3.0.1",
+    "path": "^0.12.7",
+    "pg": "^8.4.0",
+    "chromedriver": "^86.0.0",
+    "selenium-webdriver": "^4.0.0-alpha.7"
+  },
+  "author": "pduchnovsky",
+  "license": "ISC"
+}

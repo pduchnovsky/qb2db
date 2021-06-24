@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="apple-touch-icon icon shortcut" type="image/png"
+        href="https://plugin.intuitcdn.net/sbg-web-shell-ui/6.3.0/shell/harmony/images/QBOlogo.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+
+<body>
+    <div class="container">
+        <hr>
+        <div class="well text-center">
+            <h1>
+                <a href="http://developer.intuit.com">
+                    <img src="./images/quickbooks_logo_horz.png" id="headerLogo">
+                </a>
+            </h1>
+            <p>Click the <b>Connect to QuickBooks</b> button below.</p>
+            <a class="imgLink" href="#" id="authorizeUri"><img src="./images/C2QB_green_btn_lg_default.png"
+                    width="178" /></a>
+        </div>
+        <hr />
+        <p class="text-center text-muted">
+            &copy; 2018 Intuit&trade;, Inc. All rights reserved. Intuit and QuickBooks are registered trademarks of
+            Intuit Inc.
+        </p>
+    </div>
+    <script type="text/javascript">
+        (function () {
+            function authorizeUri() {
+                $.get('/authUri', function (uri) {
+                    console.log('The Auth Uris is :' + uri);
+                })
+                    .then(function (authUri) {
+                        var win = window.open(authUri, '_self');
+                        var pollOAuth = window.setInterval(function () {
+                            try {
+                                if (win.document.URL.indexOf("code") != -1) {
+                                    window.clearInterval(pollOAuth);
+                                    win.close();
+                                    location.reload();
+                                }
+                            } catch (e) {
+                                console.log(e)
+                            }
+                        }, 100);
+                    });
+            }
+            document.getElementById('authorizeUri').addEventListener('click', function response(e) {
+                e.preventDefault();
+                authorizeUri();
+            });
+        })();
+    </script>
+</body>
+
+</html>
